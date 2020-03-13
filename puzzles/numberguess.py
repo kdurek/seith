@@ -3,10 +3,13 @@ import platform
 import os
 import sys
 
+cur_path = os.path.dirname(os.path.realpath(__file__))
+parent_path = os.path.dirname(cur_path)
+sys.path.append(parent_path)
+
 import random
 
-from ..cfg import player
-# function
+from .. import player
 
 
 class Game:
@@ -50,17 +53,16 @@ class Game:
 
         if self.guess == self.number:
             print(f'Dobra robota, {self.my_name}! Zgadłeś moją liczbę za {self.guesses_taken} razem!')
+            return self.guesses_taken
         else:
             print(f'Niestety. Liczba o której myślałem to {self.number}')
 
-
+# functions
 def main_loop(my_name):
-    # print('Cześć! Jak masz na imię?')
-    # my_name = input('> ').capitalize()
-    print(f"Okej, {my_name}! Mamy dwa typy gry.")
+    print(f"Okej, {my_name}! Mamy dwa poziomy trudności.")
 
     while True:
-        print('Wpisz [1] dla łatwej lub [2] dla trudnej gry. Wpisz [q] aby wyjść.')
+        print('Wpisz [1] dla łatwego, [2] dla normalnego lub [3] dla trudnego poziomu trudności. Wpisz [q] aby wyjść.')
         user_choice = input('> ')
 
         if user_choice.lower().startswith('q'):
@@ -69,25 +71,24 @@ def main_loop(my_name):
 
         try:
             user_choice = int(user_choice)
-            if user_choice not in [1, 2]:
+            if user_choice not in [1, 2, 3]:
                 continue
         except ValueError:
             continue
 
         if user_choice == 1:
-            # make easy game
             easy_game = Game(20, my_name)
-            # play easy game
-            easy_game.play()
+            game_result = easy_game.play()
 
         elif user_choice == 2:
-            # make difficult game
-            diff_game = Game(30, my_name)
-            # play difficult game
-            diff_game.play()
+            norm_game = Game(40, my_name)
+            game_result = norm_game.play()
+            
+        elif user_choice == 3:
+            hard_game = Game(60, my_name)
+            game_result = hard_game.play()
 
         print('\nMoże kolejna?')
 
+    return game_result
 
-# main()
-sys.path.append("..")

@@ -7,7 +7,9 @@
       "label": "Python: Run Current File",
       "type": "shell",
       "command": "python",
-      "args": ["${file}"],
+      "args": [
+        "${file}"
+      ],
       "group": {
         "kind": "build",
         "isDefault": true
@@ -16,7 +18,8 @@
         "panel": "shared",
         "showReuseMessage": false,
         "clear": true
-      }
+      },
+      "problemMatcher": []
     }
   ]
 }
