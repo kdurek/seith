@@ -3,13 +3,7 @@ import platform
 import os
 import sys
 
-cur_path = os.path.dirname(os.path.realpath(__file__))
-parent_path = os.path.dirname(cur_path)
-sys.path.append(parent_path)
-
 import random
-
-from .. import player
 
 
 class Game:
@@ -30,9 +24,8 @@ class Game:
         return True
 
     def play(self):
-        print(f'Hej {self.my_name}!'
-              f'Wylosowałem dla Ciebie liczbę z przedziału od 1 do {self.high_num}.\n'
-              'Twoim zadaniem będzie odgadnąć co to za liczba, do dzieła!\n\n')
+        print(f'\nWylosowałem dla Ciebie liczbę z przedziału od 1 do {self.high_num}.\n'
+              'Twoim zadaniem będzie odgadnąć co to za liczba, do dzieła!\n')
         # f'Ilość prób: {self.guesses_taken}\n')
 
         while self.guesses_taken < 6:
@@ -43,10 +36,10 @@ class Game:
             self.guesses_taken += 1
 
             if self.guess < self.number:
-                print('Za mała liczba!')
+                print('Za mała liczba!\n')
 
             if self.guess > self.number:
-                print('Za duża liczba!')
+                print('Za duża liczba!\n')
 
             if self.guess == self.number:
                 break
@@ -58,6 +51,8 @@ class Game:
             print(f'Niestety. Liczba o której myślałem to {self.number}')
 
 # functions
+
+
 def main_loop(my_name):
     print(f"Okej, {my_name}! Mamy dwa poziomy trudności.")
 
@@ -66,7 +61,7 @@ def main_loop(my_name):
         user_choice = input('> ')
 
         if user_choice.lower().startswith('q'):
-            print('Dzięki za gre!')
+            print('\nDzięki za gre!')
             break
 
         try:
@@ -77,13 +72,13 @@ def main_loop(my_name):
             continue
 
         if user_choice == 1:
-            easy_game = Game(20, my_name)
+            easy_game = Game(2, my_name)
             game_result = easy_game.play()
 
         elif user_choice == 2:
             norm_game = Game(40, my_name)
             game_result = norm_game.play()
-            
+
         elif user_choice == 3:
             hard_game = Game(60, my_name)
             game_result = hard_game.play()
@@ -91,4 +86,3 @@ def main_loop(my_name):
         print('\nMoże kolejna?')
 
     return game_result
-
