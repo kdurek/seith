@@ -5,7 +5,7 @@ import pickle
 class Player:
     def __init__(self):
         self.name = None
-        self.score = {'numberguess': 3}
+        self.score = {}
 
 # functions
 

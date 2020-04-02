@@ -1,15 +1,19 @@
 # imports
-import platform
-import os
-import sys
-
 import random
+import sys
+import os
+
+import player
+from player import my_player
+
+
+# import player
 
 
 class Game:
-    def __init__(self, high_num, my_name):
+    def __init__(self, high_num):
         self.high_num = high_num
-        self.my_name = my_name
+        self.my_name = my_player.name
         self.guesses_taken = 0
         self.number = random.randint(1, self.high_num)
         self.guess = None
@@ -45,7 +49,8 @@ class Game:
                 break
 
         if self.guess == self.number:
-            print(f'Dobra robota, {self.my_name}! Zgadłeś moją liczbę za {self.guesses_taken} razem!')
+            print(f'Dobra robota, {self.my_name}! Zgadłeś moją\
+                liczbę za {self.guesses_taken} razem!')
             return self.guesses_taken
         else:
             print(f'Niestety. Liczba o której myślałem to {self.number}')
@@ -53,11 +58,12 @@ class Game:
 # functions
 
 
-def main_loop(my_name):
-    print(f"Okej, {my_name}! Mamy dwa poziomy trudności.")
+def main_loop():
+    print(f"Okej, {my_player.name}! Mamy dwa poziomy trudności.")
 
     while True:
-        print('Wpisz [1] dla łatwego, [2] dla normalnego lub [3] dla trudnego poziomu trudności. Wpisz [q] aby wyjść.')
+        print(
+            'Wpisz [1] dla łatwego, [2] dla normalnego lub [3] dla trudnego poziomu trudności. Wpisz [q] aby wyjść.')
         user_choice = input('> ')
 
         if user_choice.lower().startswith('q'):
@@ -72,15 +78,15 @@ def main_loop(my_name):
             continue
 
         if user_choice == 1:
-            easy_game = Game(2, my_name)
+            easy_game = Game(20)
             game_result = easy_game.play()
 
         elif user_choice == 2:
-            norm_game = Game(40, my_name)
+            norm_game = Game(40)
             game_result = norm_game.play()
 
         elif user_choice == 3:
-            hard_game = Game(60, my_name)
+            hard_game = Game(60)
             game_result = hard_game.play()
 
         print('\nMoże kolejna?')
